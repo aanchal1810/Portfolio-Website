@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: BethanyElingston;
+  src: url("/fonts/BethanyElingston.otf");
+}
+@font-face {
+  font-family: UrbaneCondensed;
+  src: url("/fonts/UrbaneCondensed-Light.ttf");
+}
+@font-face {
+  font-family: SplineSansMono;
+  src: url("https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap");
+}
+/* @plugin "@tailwindcss/typography"; */
+
+@theme{
+  --font-bethany: "BethanyElingston", serif;
+  --font-urbane: "UrbaneCondensed", sans-serif; 
+  --font-spline: "SplineSansMono", monospace;
+  --color-brand-pink: rgb(255, 209, 221);
+  --color-brand-black: rgb(46, 46, 46);
+  --color-brand-lavendar: rgb(253, 220, 255);
+  --color-brand-turqoise: rgb(214, 243, 255);
+  --color-brand-blue: #7DCDFF;
+  --color-brand-red: #FF74AE;
+  --color-brand-purple: #F67DFF;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
