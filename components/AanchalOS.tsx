@@ -84,9 +84,29 @@ const AanchalOS = () => {
     setZIndices({ [first.id]: 2 });
     setZCounter(2);
   }, []);
+  const [isMobile, setIsMobile] = useState(false);
 
-  
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+
+
   const handleOpen = (project: Project) => {
+    if (isMobile) {
+      setOpenDocs([
+        {
+          ...project,
+          position: { top: 20, left: 0 },
+        },
+      ]);
+      setZIndices({ [project.id]: 10 });
+      setZCounter(10);
+      return;
+    }
     setOpenDocs((prev) => {
       const existing = prev.find((doc) => doc.id === project.id);
 
@@ -132,7 +152,7 @@ const AanchalOS = () => {
 
   return (
     <div
-      className="relative flex flex-col w-[90%] md:w-[70%] items-center h-[80%] font-urbane text-brand-black shadow-[-6px_6px_0px_#2E2E2E] bg-white border-2 rounded-lg overflow-hidden"
+      className="relative flex flex-col w-[90%] md:w-[70%] items-center h-[90%] md:h-[80%] font-urbane text-brand-black shadow-[-6px_6px_0px_#2E2E2E] bg-white border-2 rounded-lg overflow-hidden"
       style={{ boxShadow: "-6px 6px 0px 0px #2E2E2E" }}
     >
       {/* Header */}
@@ -146,9 +166,10 @@ const AanchalOS = () => {
       </div>
 
       {/* Body */}
-      <div className="flex h-[90%] w-full gap-10 justify-center items-center relative">
+      <div className="relative flex flex-col md:flex-row h-[90%] w-full gap-10 justify-center items-center overflow-hidden">
+
         {/* Sidebar */}
-        <div className="h-[90%] flex flex-col items-center w-[15%] gap-3 overflow-y-auto">
+        <div className="h-[20%] md:h-[90%] flex md:flex-col items-center w-[90%] md:w-[15%] gap-3 overflow-x-auto md:overflow-y-auto">
           {projects.map((project) => (
             <div
               key={project.id}
@@ -161,18 +182,24 @@ const AanchalOS = () => {
         </div>
 
         {/* Windows area */}
-        <div className="relative flex-1 h-full">
+        <div className="relative flex-1 w-full h-full">
           {openDocs.map((doc) => (
             <div
               key={doc.id}
-              className="absolute"
+              className={`
+    absolute
+    ${isMobile
+                  ? "inset-0 flex justify-center items-start pt-4"
+                  : ""}
+  `}
               style={{
-                top: doc.position.top,
-                left: doc.position.left,
+                top: isMobile ? 0 : doc.position.top,
+                left: isMobile ? 0 : doc.position.left,
                 zIndex: zIndices[doc.id] || 1,
               }}
-              onMouseDown={() => bringToFront(doc.id)}
+              onMouseDown={() => !isMobile && bringToFront(doc.id)}
             >
+
               <Document
                 fileName={doc.name}
                 title={doc.title}

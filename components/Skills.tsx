@@ -2,9 +2,9 @@ import React from 'react'
 
 const Skills = () => {
   return (
-    <section className="flex justify-center h-full font-urbane text-brand-black">
+    <section className="flex justify-center items-center h-full font-urbane text-brand-black">
       {/* div for mt-20 */}
-      <div className="flex flex-col md:flex-row items-center md:items-start justify-center mt-20 gap-10 md:gap-3">
+      <div className="flex flex-col md:flex-row items-center md:items-start justify-center mt-0 md:mt-20 gap-10 md:gap-3">
         {/* ID Card */}
         {/* <div>
           <img

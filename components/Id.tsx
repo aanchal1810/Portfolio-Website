@@ -24,14 +24,14 @@ import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 extend({ MeshLineGeometry, MeshLineMaterial });
 
 // 2. Add Type Support for MeshLine
-declare module "@react-three/fiber" {
-  interface ThreeElements {
-    meshLineGeometry: ReactThreeFiber.Object3DNode<MeshLineGeometry, typeof MeshLineGeometry>;
-    meshLineMaterial: ReactThreeFiber.MaterialNode<MeshLineMaterial, typeof MeshLineMaterial>;
-  }
-}
+// declare module "@react-three/fiber" {
+//   interface ThreeElements {
+//     meshLineGeometry: ReactThreeFiber.Object3DNode<MeshLineGeometry, typeof MeshLineGeometry>;
+//     meshLineMaterial: ReactThreeFiber.MaterialNode<MeshLineMaterial, typeof MeshLineMaterial>;
+//   }
+// }
 
-// 3. Define the extended interface for logic usage
+//3. Define the extended interface for logic usage
 interface ExtendedRigidBody extends RapierRigidBody {
   lerped?: THREE.Vector3;
 }
@@ -41,16 +41,29 @@ useGLTF.preload("/glb/aanchalID.glb");
 useTexture.preload("/images/band.jpg");
 
 export default function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <Canvas
       camera={{ position: [0, 0, 13], fov: 25 }}
-      style={{ width: "50vw", height: "100vh" }}
+      style={{
+        width: isMobile ? "100vw" : "50vw",
+        height: "100vh",
+      }}
+      
       gl={{ antialias: true }}
       onCreated={({ gl, scene }) => {
         gl.setClearColor("#ffffff");
         gl.toneMapping = THREE.NoToneMapping;
         // Fix: Use modern ColorSpace API for newer Three.js versions
-        gl.outputColorSpace = THREE.SRGBColorSpace; 
+        gl.outputColorSpace = THREE.SRGBColorSpace;
         scene.background = new THREE.Color("#ffffff");
       }}
     >
@@ -140,29 +153,29 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
         new THREE.Vector3(),
       ])
   );
-  
+
   const [dragged, drag] = useState<THREE.Vector3 | false>(false);
   const [hovered, hover] = useState(false);
 
   // Fix: Explicitly cast refs for joints to avoid "Type null is not assignable" errors
   useRopeJoint(
-    fixed as React.RefObject<RapierRigidBody>, 
-    j1 as React.RefObject<RapierRigidBody>, 
+    fixed as React.RefObject<RapierRigidBody>,
+    j1 as React.RefObject<RapierRigidBody>,
     [[0, 0, 0], [0, 0, 0], 1]
   );
   useRopeJoint(
-    j1 as React.RefObject<RapierRigidBody>, 
-    j2 as React.RefObject<RapierRigidBody>, 
+    j1 as React.RefObject<RapierRigidBody>,
+    j2 as React.RefObject<RapierRigidBody>,
     [[0, 0, 0], [0, 0, 0], 1]
   );
   useRopeJoint(
-    j2 as React.RefObject<RapierRigidBody>, 
-    j3 as React.RefObject<RapierRigidBody>, 
+    j2 as React.RefObject<RapierRigidBody>,
+    j3 as React.RefObject<RapierRigidBody>,
     [[0, 0, 0], [0, 0, 0], 1]
   );
   useSphericalJoint(
-    j3 as React.RefObject<RapierRigidBody>, 
-    card as React.RefObject<RapierRigidBody>, 
+    j3 as React.RefObject<RapierRigidBody>,
+    card as React.RefObject<RapierRigidBody>,
     [[0, 0, 0], [0, 2.1, 0]]
   );
 
@@ -178,9 +191,9 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
-      
+
       [card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp());
-      
+
       card.current?.setNextKinematicTranslation({
         x: vec.x - dragged.x,
         y: vec.y - dragged.y,
@@ -197,13 +210,13 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
         if (!rb.lerped) {
           rb.lerped = new THREE.Vector3().copy(rb.translation());
         }
-        
+
         const translation = rb.translation();
         const clampedDistance = Math.max(
           0.1,
           Math.min(1, rb.lerped.distanceTo(translation))
         );
-        
+
         rb.lerped.lerp(
           translation,
           delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
@@ -215,7 +228,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
       curve.points[1].copy(j2Extended.lerped!);
       curve.points[2].copy(j1Extended.lerped!);
       curve.points[3].copy(fixed.current.translation());
-      
+
       // Update Geometry
       // @ts-ignore: meshLine types can be finicky about setPoints
       band.current.geometry.setPoints(curve.getPoints(32));

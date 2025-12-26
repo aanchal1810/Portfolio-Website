@@ -28,33 +28,41 @@ const Document: React.FC<DocumentProps> = ({
 }) => {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
-  // Get screen size for centering
-  useEffect(() => {
-    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-  }, []);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const defaultWidth = 600;
-  const defaultHeight = 450;
+useEffect(() => {
+  const check = () => setIsMobile(window.innerWidth < 768);
+  check();
+  window.addEventListener("resize", check);
+  return () => window.removeEventListener("resize", check);
+}, []);
+const defaultWidth = isMobile ? window.innerWidth * 0.8 : 600;
+const defaultHeight = isMobile ? window.innerHeight * 0.5 : 450;
+
 
   return (
     <Rnd
-      default={{
-        x: windowSize.width / 2 - defaultWidth / 2 + 100,
-        y: windowSize.height / 2 - defaultHeight / 2 + 165,
-        width: defaultWidth,
-        height: defaultHeight,
-      }}
-      bounds="window"
-      dragHandleClassName="drag-handle"
-      minWidth={400}
-      minHeight={300}
-      onClick={onClick}
-      style={{
-        zIndex,
-        position: "absolute",
-      }}
-      className="rounded-lg border-2 border-brand-black bg-white"
-    >
+  key={isMobile ? "mobile" : "desktop"} 
+  default={{
+    x: isMobile ? window.innerWidth * 0.05 : windowSize.width / 2 - defaultWidth / 2 + 100,
+    y: isMobile ? 20 : windowSize.height / 2 - defaultHeight / 2 + 165,
+    width: defaultWidth,
+    height: defaultHeight,
+  }}
+  bounds={isMobile ? "parent" : "window"}
+  disableDragging={isMobile}
+  enableResizing={!isMobile}
+  dragHandleClassName={isMobile ? undefined : "drag-handle"}
+  minWidth={isMobile ? 280 : 400}
+  minHeight={300}
+  style={{
+    zIndex,
+    position: "absolute",
+  }}
+  className="rounded-lg border-2 border-brand-black bg-white"
+>
+
+
       {/* Header Bar */}
       <div className="drag-handle w-full flex justify-between items-center bg-brand-turqoise border-b-2 border-brand-black rounded-t-lg cursor-move px-3 py-1 text-base/tight">
         <p className="text-md font-bold">{fileName}</p>
