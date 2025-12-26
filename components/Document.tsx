@@ -88,7 +88,7 @@ const Document: React.FC<DocumentProps> = ({
 
         {link && (
           <div className="flex gap-2 items-center">
-            <img src="/link.svg" alt="link" className="w-4 h-4" />
+            <img src="/images/link.svg" alt="link" className="w-4 h-4" />
             <a
               href={link}
               target="_blank"

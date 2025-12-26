@@ -6,7 +6,7 @@ import Skills from '@/components/Skills';
 const HomePage = () => {
   return (
     <div
-     className="flex h-screen font-urbane text-brand-black">
+     className="flex flex-col md:flex-row h-screen font-urbane text-brand-black justify-center">
         <Id />
         <Skills />
       </div>

@@ -37,7 +37,7 @@ interface ExtendedRigidBody extends RapierRigidBody {
 }
 
 // 4. Preload Assets
-useGLTF.preload("/glb/final1.glb");
+useGLTF.preload("/glb/aanchalID.glb");
 useTexture.preload("/images/band.jpg");
 
 export default function App() {
@@ -127,7 +127,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
   };
 
   // GLTF Loading
-  const { nodes, materials } = useGLTF("/glb/final1.glb") as any;
+  const { nodes, materials } = useGLTF("/glb/aanchalID.glb") as any;
   const texture = useTexture("/images/band.jpg");
   const { width, height } = useThree((state) => state.size);
 
