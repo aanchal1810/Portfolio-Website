@@ -14,6 +14,12 @@ type DocumentProps = {
   onClick?: () => void;
   zIndex?: number;
 };
+function toDriveEmbed(url: string) {
+  const match = url.match(/\/d\/([^/]+)/)
+  if (!match) return url
+  return `https://drive.google.com/file/d/${match[1]}/preview`
+}
+
 
 const Document: React.FC<DocumentProps> = ({
   fileName,
@@ -74,10 +80,11 @@ const defaultHeight = isMobile ? window.innerHeight * 0.5 : 450;
         <h1 className="font-bold text-lg mb-2">{title}</h1>
 
         {video && (
-          <video
-            src={video}
+          <iframe
+            src={toDriveEmbed(video)}
             className="border-2 border-brand-black rounded-lg mb-3 w-full"
-            controls
+            allow="autoplay"
+            allowFullScreen
           />
         )}
 
