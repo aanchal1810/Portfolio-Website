@@ -6,7 +6,7 @@ import { Rnd } from "react-rnd";
 type DocumentProps = {
   fileName: string;
   title: string;
-  video: string;
+  video?: string;
   desc?: string;
   techStack: string[];
   link: string;

@@ -1,4 +1,4 @@
-import React from 'react'
+import {useRef} from 'react'
 
 const Skills = () => {
   return (
@@ -178,7 +178,9 @@ const Skills = () => {
           {/* View Projects Button */}
           <div className="w-[75%] lg:w-[40%] relative">
             {/* Main Block */}
-            <div className="w-full border-2 border-brand-black p-4 rounded-full bg-white flex flex-col gap-2 text-center">
+            <div className="w-full border-2 border-brand-black p-4 rounded-full bg-white flex flex-col gap-2 text-center cursor-pointer"
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <div className="w-full flex gap-3 align-middle items-center justify-center">
                 <h1 className="font-bold text-lg">View Projects</h1>
                 <img src="/images/DownArrow.svg" width={26} />
@@ -186,7 +188,9 @@ const Skills = () => {
             </div>
             {/* View Projects Button */}
             <div className="absolute full top-2 -left-2 right-2 border-2 rounded-full border-brand-black bg-brand-pink p-4 -z-10">
-              <div className="w-full flex gap-3 align-middle justify-center">
+              <div className="w-full flex gap-3 align-middle justify-center cursor-pointer"
+              
+              >
                 <h1 className="font-bold text-lg">View Projects</h1>
                 <img src="/images/DownArrow.svg" />
               </div>

@@ -4,7 +4,7 @@ import AanchalOS from '@/components/AanchalOS';
 
 const Projects = () => {
   return (
-    <section className="flex justify-center items-center h-screen font-urbane text-brand-black">
+    <section id='projects' className="flex justify-center items-center h-screen font-urbane text-brand-black">
         <AanchalOS/>
     </section>
   )

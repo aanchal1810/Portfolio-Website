@@ -7,7 +7,8 @@ type Project = {
   id: number;
   name: string;
   title: string;
-  video: string;
+  video?: string;
+  desc?: string;
   techStack: string[];
   link: string;
 };
@@ -40,8 +41,7 @@ const AanchalOS = () => {
     {
       id: 2,
       name: "MPSTME OnTrack",
-      title: "MPSTME OnTrack Website",
-      video: "https://drive.google.com/file/d/18D4xChDvpRuExwrlBO4s-F4Ni7nj8eBL/view?usp=sharing",
+      title: "MPSTME OnTrack",
       techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
       link: "https://taqneeq.vercel.app/",
     },
@@ -56,18 +56,16 @@ const AanchalOS = () => {
     {
       id: 4,
       name: "Budget Buddy",
-      title: "Budget Buddy App",
-      video: "https://drive.google.com/file/d/18D4xChDvpRuExwrlBO4s-F4Ni7nj8eBL/view?usp=sharing",
-      techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
-      link: "https://taqneeq.vercel.app/",
+      title: "Budget Buddy Wrbsite",
+      techStack: ["HTML", "Flask", "TailwindCSS", "Javascript"],
+      link: "https://budget-buddy-dun.vercel.app/",
     },
     {
       id: 5,
       name: "Netflix Clone",
       title: "Netflix Clone App",
-      video: "https://drive.google.com/file/d/18D4xChDvpRuExwrlBO4s-F4Ni7nj8eBL/view?usp=sharing",
-      techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
-      link: "https://taqneeq.vercel.app/",
+      techStack: ["Java - Frontend", "Python - Backend"],
+      link: "https://github.com/aanchal1810/Netflix-Clone",
     },
   ];
 
@@ -152,7 +150,7 @@ const AanchalOS = () => {
 
   return (
     <div
-      className="relative flex flex-col w-[90%] md:w-[70%] items-center h-[90%] md:h-[80%] font-urbane text-brand-black shadow-[-6px_6px_0px_#2E2E2E] bg-white border-2 rounded-lg overflow-hidden"
+      className="relative mt-16 flex flex-col w-[90%] md:w-[70%] items-center h-[90%] md:h-[80%] font-urbane text-brand-black shadow-[-6px_6px_0px_#2E2E2E] bg-white border-2 rounded-lg overflow-hidden"
       style={{ boxShadow: "-6px 6px 0px 0px #2E2E2E" }}
     >
       {/* Header */}
