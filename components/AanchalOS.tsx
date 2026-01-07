@@ -35,6 +35,7 @@ const AanchalOS = () => {
       name: "Taqneeq Fest",
       title: "Taqneeq Fest Website",
       video: "https://drive.google.com/file/d/18D4xChDvpRuExwrlBO4s-F4Ni7nj8eBL/view?usp=sharing",
+      desc: "The official website for Taqneeq 17.0, the annual tech fest of MPSTME, themed “Cosmic Rewind”, a retro-futuristic journey through tech, time, and creativity. This platform served as the central hub for all fest-related information, event registrations, and updates.",
       techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
       link: "https://taqneeq.vercel.app/",
     },
@@ -42,28 +43,32 @@ const AanchalOS = () => {
       id: 2,
       name: "MPSTME OnTrack",
       title: "MPSTME OnTrack",
-      techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
-      link: "https://taqneeq.vercel.app/",
+      desc: "Developed using Flutter, MPSTME OnTrack is built with an aim of never letting anyone from MPSTME get late to a lecture searching for their class. MPSTME OnTrack allows a user to store their schedule with their class details. It has inbuilt features such as floor plans and class highlighting to easily navigate through the campus with pre-lecture notifications (only Android) to make sure you reach before time.",
+      techStack: ["Figma (I lead the entire UI/UX team for this)"],
+      link: "https://mpstme-ontrack.netlify.app/",
     },
     {
       id: 3,
       name: "Cyber Cypher",
       title: "Cyber Cypher Website",
       video: "https://drive.google.com/file/d/1mcgnVEjHl5U4a-AFShbTXbK_v_2OVf8Q/view?usp=sharing",
+      desc: "A fully themed hackathon website built for Cyber Cypher, the flagship event of Taqneeq 17.0, MPSTME’s annual tech fest. The site follows the overarching theme “Cosmic Rewind”, blending retro-futuristic visuals with modern UI/UX design and frontend development.",
       techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
       link: "https://taqneeq.vercel.app/",
     },
     {
       id: 4,
       name: "Budget Buddy",
-      title: "Budget Buddy Wrbsite",
-      techStack: ["HTML", "Flask", "TailwindCSS", "Javascript"],
+      title: "Budget Buddy Website",
+      desc: "BudgetBuddy is a full-stack personal finance web application developed during my second year, designed to simplify expense management through a clean, intuitive, and feature-rich interface. Built using HTML, Tailwind CSS, JavaScript, jQuery, and a Flask backend, the platform allows users to seamlessly track income and expenses while visualizing their financial habits through interactive graphical analytics. It integrates the Google Calendar API to map transactions to specific dates, providing a clear temporal view of spending and earnings. A smart FinBot chatbot powered via a Gemini API key assists users with financial queries and insights, enhancing engagement and usability. Additionally, the Split with Friends feature enables users to divide expenses based on custom ratios, making group expense management effortless. BudgetBuddy demonstrates strong foundational full-stack development skills, thoughtful API integration, and a practical approach to solving real-world financial tracking problems with a polished user experience.",
+      techStack: ["HTML", "Flask", "TailwindCSS", "Javascript", "Supabase", "Vercel"],
       link: "https://budget-buddy-dun.vercel.app/",
     },
     {
       id: 5,
       name: "Netflix Clone",
       title: "Netflix Clone App",
+      desc: "This project is a production-ready Netflix-style Android streaming application that replicates the core features of a modern OTT platform while emphasizing personalized content discovery. Built using native Android (Java) with an MVVM architecture, the app delivers a seamless user experience through secure authentication, multi-profile support, high-quality video playback with offline downloads, and polished UI/UX interactions. A key differentiating feature is the interactive swipe-based onboarding system, which captures user preferences at the start and serves as the foundation for personalized movie recommendations. The application follows a client–server architecture, integrating Firebase for authentication and data management, TMDB API for movie metadata, ExoPlayer for streaming, and a custom FastAPI backend that uses vector-based machine learning to generate intelligent, scalable recommendations, demonstrating real-world readiness and strong full-stack engineering practices.",
       techStack: ["Java - Frontend", "Python - Backend"],
       link: "https://github.com/aanchal1810/Netflix-Clone",
     },
@@ -167,11 +172,11 @@ const AanchalOS = () => {
       <div className="relative flex flex-col md:flex-row h-[90%] w-full gap-10 justify-center items-center overflow-hidden">
 
         {/* Sidebar */}
-        <div className="h-[20%] md:h-[90%] flex md:flex-col items-center w-[90%] md:w-[15%] gap-3 overflow-x-auto md:overflow-y-auto">
+        <div className="h-[20%] md:h-[90%] flex md:flex-col mt-5 md:mt-0 items-start md:items-center w-[90%] md:w-[15%] gap-5 md:gap-3 overflow-x-auto md:overflow-y-auto snap-x snap-mandatory md:snap-none">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="w-[70%] cursor-pointer"
+              className="min-w-24 max-w-24 snap-start md:w-[70%] cursor-pointer"
               onClick={() => handleOpen(project)}
             >
               <File name={project.name} />
@@ -202,6 +207,7 @@ const AanchalOS = () => {
                 fileName={doc.name}
                 title={doc.title}
                 video={doc.video}
+                desc={doc.desc}
                 techStack={doc.techStack}
                 link={doc.link}
                 onClose={() => handleClose(doc.id)}
