@@ -119,7 +119,7 @@ const Skills = () => {
                     <br />
                     <span>Expected Graduation: 2027</span>
                     <br />
-                    <span>CGPA: 3.95</span>
+                    <span>CGPA: 3.93</span>
                   </li>
                   <li className="relative pl-8 before:absolute before:left-0 before:top-1 before:w-5 before:h-5 before:bg-[url('/images/Sparkle.svg')] before:bg-contain before:bg-no-repeat">
                     <span className="font-semibold">
