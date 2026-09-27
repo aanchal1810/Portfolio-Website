@@ -4,18 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import { Pencil, Eraser, Undo2, Redo2, Sprout } from "lucide-react";
 
 const COLORS = [
-  "#FF74AE", // brand-red
-  "#F67DFF", // brand-purple
-  "#7DCDFF", // brand-blue
-  "#B993FF",
-  "#9AE6FF",
-  "#8FD14F",
-  "#C7F27A",
-  "#FFE066",
-  "#FFB347",
+  "#FF8DBC",
+  "#FF4C58",
+  "#C167EE",
+  "#4466FA",
+  "#44B5FD",
+  "#76DEFE",
+  "#01AC37",
+  "#72FF26",
+  "#FFFB00",
+  "#FFA502"
 ];
 
-const CANVAS_SIZE = 320;
+const CANVAS_SIZE = 380;
 type Tool = "pencil" | "eraser";
 
 interface PaintCanvasProps {
@@ -152,12 +153,15 @@ export default function PaintCanvas({ onPlant }: PaintCanvasProps) {
   }
 
   return (
-    <div className="rounded-lg border-2 border-brand-black bg-white overflow-hidden shadow-md">
+    <div
+      className="rounded-lg border-2 border-brand-black bg-white overflow-hidden w-full max-w-xl"
+      style={{ boxShadow: "-6px 6px 0px 0px #2E2E2E" }}
+    >
       <div className="flex items-center justify-between bg-brand-lavendar px-4 py-2 border-b-2 border-brand-black">
         <div className="flex gap-2">
-          <span className="h-3 w-3 rounded-full bg-brand-blue" />
-          <span className="h-3 w-3 rounded-full bg-brand-red" />
-          <span className="h-3 w-3 rounded-full bg-brand-purple" />
+          <span className="h-4 w-4 rounded-full bg-brand-blue border-brand-black border" />
+          <span className="h-4 w-4 rounded-full bg-brand-red border-brand-black border" />
+          <span className="h-4 w-4 rounded-full bg-brand-purple border-brand-black border" />
         </div>
         <span className="font-urbane text-lg">Paint</span>
       </div>
@@ -185,7 +189,7 @@ export default function PaintCanvas({ onPlant }: PaintCanvasProps) {
             <Eraser size={18} strokeWidth={2} />
           </button>
 
-          <div className="grid grid-cols-2 gap-1 mt-1">
+          <div className="grid grid-cols-2 gap-1">
             {COLORS.map((c) => (
               <button
                 key={c}
@@ -193,7 +197,7 @@ export default function PaintCanvas({ onPlant }: PaintCanvasProps) {
                 aria-label={`Color ${c}`}
                 onClick={() => setColor(c)}
                 style={{ backgroundColor: c }}
-                className={`h-4 w-4 rounded-sm border ${
+                className={`h-5 w-5 border ${
                   color === c ? "ring-2 ring-brand-black" : "border-brand-black/40"
                 }`}
               />
@@ -238,7 +242,8 @@ export default function PaintCanvas({ onPlant }: PaintCanvasProps) {
           type="button"
           onClick={handlePlant}
           disabled={submitting}
-          className="ml-auto flex items-center gap-1.5 rounded-md border-2 border-brand-black bg-brand-pink px-4 py-1.5 font-urbane text-lg disabled:opacity-50"
+          className="ml-auto flex items-center gap-1.5 rounded-md border-2 border-brand-black bg-[#B3FFB9] px-4 py-1.5 font-urbane text-lg disabled:opacity-50"
+          style={{ boxShadow: "-4px 4px 0px 0px #2E2E2E" }}
         >
           <Sprout size={18} strokeWidth={2} />
           {submitting ? "Planting..." : "Plant"}

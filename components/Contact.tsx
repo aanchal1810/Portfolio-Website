@@ -98,7 +98,7 @@ export default function Floating() {
           self-end
         "
             >
-                <MessageCircle />
+                <Mail />
             </button>
         </div>
     );

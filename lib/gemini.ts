@@ -15,6 +15,13 @@ const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GE
 export async function moderateFlowerDrawing(
   base64Png: string
 ): Promise<ModerationResult> {
+  // Explicit opt-in only, and only outside production - lets you iterate on
+  // layout/CSS locally without spending your daily Gemini quota on every
+  // click. Never set SKIP_MODERATION=true in a deployed environment.
+  if (process.env.NODE_ENV !== "production" && process.env.SKIP_MODERATION === "true") {
+    return { isFlower: true, isAppropriate: true, reason: "Moderation skipped (dev mode)." };
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error("GEMINI_API_KEY is not set on the server");

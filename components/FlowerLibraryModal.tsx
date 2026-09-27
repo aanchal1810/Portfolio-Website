@@ -33,8 +33,9 @@ export default function FlowerLibraryModal({ onClose }: FlowerLibraryModalProps)
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg rounded-lg border-2 border-brand-black bg-white shadow-md"
+        className="w-full max-w-lg rounded-lg border-2 border-brand-black bg-white"
         onClick={(e) => e.stopPropagation()}
+        style={{ boxShadow: "-6px 6px 0px 0px #2E2E2E" }}
       >
         <div className="flex items-center justify-between bg-brand-turqoise px-4 py-2 border-b-2 border-brand-black">
           <span className="font-urbane text-lg">Flower Library</span>

@@ -24,67 +24,105 @@ type OpenDoc = Project & {
 
 type ZIndexMap = Record<number, number>;
 
+// Which project auto-opens on load. Change this one number if you ever want
+// a different project to be the default - it no longer depends on array order.
+const DEFAULT_OPEN_PROJECT_ID = 1;
+
 const AanchalOS = () => {
   const [openDocs, setOpenDocs] = useState<OpenDoc[]>([]);
   const [zIndices, setZIndices] = useState<ZIndexMap>({});
   const [zCounter, setZCounter] = useState<number>(1);
 
   const projects: Project[] = [
-    {
-      id: 1,
-      name: "Taqneeq Fest",
-      title: "Taqneeq Fest Website",
-      video: "https://drive.google.com/file/d/18D4xChDvpRuExwrlBO4s-F4Ni7nj8eBL/view?usp=sharing",
-      desc: "The official website for Taqneeq 17.0, the annual tech fest of MPSTME, themed “Cosmic Rewind”, a retro-futuristic journey through tech, time, and creativity. This platform served as the central hub for all fest-related information, event registrations, and updates.",
-      techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
-      link: "https://taqneeq.vercel.app/",
-    },
-    {
-      id: 2,
-      name: "MPSTME OnTrack",
-      title: "MPSTME OnTrack",
-      desc: "Developed using Flutter, MPSTME OnTrack is built with an aim of never letting anyone from MPSTME get late to a lecture searching for their class. MPSTME OnTrack allows a user to store their schedule with their class details. It has inbuilt features such as floor plans and class highlighting to easily navigate through the campus with pre-lecture notifications (only Android) to make sure you reach before time.",
-      techStack: ["Figma (I lead the entire UI/UX team for this)"],
-      link: "https://mpstme-ontrack.netlify.app/",
-    },
-    {
-      id: 3,
-      name: "Cyber Cypher",
-      title: "Cyber Cypher Website",
-      video: "https://drive.google.com/file/d/1mcgnVEjHl5U4a-AFShbTXbK_v_2OVf8Q/view?usp=sharing",
-      desc: "A fully themed hackathon website built for Cyber Cypher, the flagship event of Taqneeq 17.0, MPSTME’s annual tech fest. The site follows the overarching theme “Cosmic Rewind”, blending retro-futuristic visuals with modern UI/UX design and frontend development.",
-      techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
-      link: "https://taqneeq.vercel.app/",
-    },
-    {
-      id: 4,
-      name: "Budget Buddy",
-      title: "Budget Buddy Website",
-      desc: "BudgetBuddy is a full-stack personal finance web application developed during my second year, designed to simplify expense management through a clean, intuitive, and feature-rich interface. Built using HTML, Tailwind CSS, JavaScript, jQuery, and a Flask backend, the platform allows users to seamlessly track income and expenses while visualizing their financial habits through interactive graphical analytics. It integrates the Google Calendar API to map transactions to specific dates, providing a clear temporal view of spending and earnings. A smart FinBot chatbot powered via a Gemini API key assists users with financial queries and insights, enhancing engagement and usability. Additionally, the Split with Friends feature enables users to divide expenses based on custom ratios, making group expense management effortless. BudgetBuddy demonstrates strong foundational full-stack development skills, thoughtful API integration, and a practical approach to solving real-world financial tracking problems with a polished user experience.",
-      techStack: ["HTML", "Flask", "TailwindCSS", "Javascript", "Supabase", "Vercel"],
-      link: "https://budget-buddy-dun.vercel.app/",
-    },
-    {
-      id: 5,
-      name: "Netflix Clone",
-      title: "Netflix Clone App",
-      desc: "This project is a production-ready Netflix-style Android streaming application that replicates the core features of a modern OTT platform while emphasizing personalized content discovery. Built using native Android (Java) with an MVVM architecture, the app delivers a seamless user experience through secure authentication, multi-profile support, high-quality video playback with offline downloads, and polished UI/UX interactions. A key differentiating feature is the interactive swipe-based onboarding system, which captures user preferences at the start and serves as the foundation for personalized movie recommendations. The application follows a client–server architecture, integrating Firebase for authentication and data management, TMDB API for movie metadata, ExoPlayer for streaming, and a custom FastAPI backend that uses vector-based machine learning to generate intelligent, scalable recommendations, demonstrating real-world readiness and strong full-stack engineering practices.",
-      techStack: ["Java - Frontend", "Python - Backend"],
-      link: "https://github.com/aanchal1810/Netflix-Clone",
-    },
-  ];
+  {
+    id: 1,
+    name: "Gene-Disease Association GNN",
+    title: "Gene-Disease Association Prediction using Graph Neural Networks",
+    desc: "A capstone project predicting gene-disease associations with graph neural networks. Built the full data pipeline integrating BioSNAP DG-AssocMiner and STRING v12.0 PPI data, achieving 96.3% ID mapping coverage via MyGene.info. Compared three feature engineering approaches (degree-only, raw GO terms, and TF-IDF+SVD-reduced GO terms), then trained and evaluated GraphSAGE and GAT architectures - GAT with the TF-IDF+SVD features achieved an AUC of ~0.872, significantly outperforming GraphSAGE (p=0.0004).",
+    techStack: ["Python", "PyTorch Geometric", "GraphSAGE", "GAT", "BioSNAP", "STRING"],
+    link: "https://colab.research.google.com/drive/1RpOAF00IeFVI7bnT7h91iXwGZO75y5jw?usp=sharing",
+  },
+  {
+    id: 2,
+    name: "EV Charging Station Placement",
+    title: "EV Charging Station Placement Optimization using GeoAI",
+    desc: "Built a geospatial machine learning framework for EV infrastructure planning using OSMnx, GeoPandas, scikit-learn, and SciPy, analyzing 460K+ road network segments and urban features. Engineered an EV Demand Score by integrating road density, building density, and urbanicity into a weighted spatial index over a district-wide grid. Developed a Hybrid Optimization Model that outperformed K-Means and P-Median baselines, achieving 36.7% coverage improvement and significantly lower load variance for charging station allocation.",
+    techStack: ["Python", "OSMnx", "GeoPandas", "scikit-learn", "SciPy"],
+    link: "", // TODO: add repo/demo link
+  },
+  {
+    id: 3,
+    name: "Microservices Study Platform",
+    title: "Microservices-Based Study Platform",
+    desc: "Developed a scalable study platform with gamification modules using microservices architecture and event-driven communication. Orchestrated Node.js services through Kafka, implemented Kong API Gateway for authentication, and utilized PostgreSQL and Redis for data management.",
+    techStack: ["Node.js", "Kafka", "Kong API Gateway", "PostgreSQL", "Redis"],
+    link: "", // TODO: add repo/demo link
+  },
+  {
+    id: 4,
+    name: "Virtual Try-On Project",
+    title: "Virtual Try-On Project",
+    desc: "Designed a 2D Virtual Try-On system leveraging Computer Vision, integrating diffusion-inspired image synthesis and geometric garment alignment techniques to produce realistic visualizations.",
+    techStack: ["Python", "Computer Vision", "Diffusion Models", "Image Processing"],
+    link: "", // TODO: add repo/demo link
+  },
+  {
+    id: 5,
+    name: "Taqneeq Fest",
+    title: "Taqneeq Fest Website",
+    video: "https://drive.google.com/file/d/18D4xChDvpRuExwrlBO4s-F4Ni7nj8eBL/view?usp=sharing",
+    desc: "The official website for Taqneeq 17.0, the annual tech fest of MPSTME, themed \u201cCosmic Rewind\u201d, a retro-futuristic journey through tech, time, and creativity. This platform served as the central hub for all fest-related information, event registrations, and updates.",
+    techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
+    link: "https://taqneeq.vercel.app/",
+  },
+  {
+    id: 6,
+    name: "MPSTME OnTrack",
+    title: "MPSTME OnTrack",
+    desc: "Developed using Flutter, MPSTME OnTrack is built with an aim of never letting anyone from MPSTME get late to a lecture searching for their class. MPSTME OnTrack allows a user to store their schedule with their class details. It has inbuilt features such as floor plans and class highlighting to easily navigate through the campus with pre-lecture notifications (only Android) to make sure you reach before time.",
+    techStack: ["Figma (I lead the entire UI/UX team for this)"],
+    link: "https://mpstme-ontrack.netlify.app/",
+  },
+  {
+    id: 7,
+    name: "Cyber Cypher",
+    title: "Cyber Cypher Website",
+    video: "https://drive.google.com/file/d/1mcgnVEjHl5U4a-AFShbTXbK_v_2OVf8Q/view?usp=sharing",
+    desc: "A fully themed hackathon website built for Cyber Cypher, the flagship event of Taqneeq 17.0, MPSTME\u2019s annual tech fest. The site follows the overarching theme \u201cCosmic Rewind\u201d, blending retro-futuristic visuals with modern UI/UX design and frontend development.",
+    techStack: ["React", "NextJS", "TailwindCSS", "Vercel"],
+    link: "https://taqneeq.vercel.app/",
+  },
+  {
+    id: 8,
+    name: "Budget Buddy",
+    title: "Budget Buddy Website",
+    desc: "BudgetBuddy is a full-stack personal finance web application developed during my second year, designed to simplify expense management through a clean, intuitive, and feature-rich interface. Built using HTML, Tailwind CSS, JavaScript, jQuery, and a Flask backend, the platform allows users to seamlessly track income and expenses while visualizing their financial habits through interactive graphical analytics. It integrates the Google Calendar API to map transactions to specific dates, providing a clear temporal view of spending and earnings. A smart FinBot chatbot powered via a Gemini API key assists users with financial queries and insights, enhancing engagement and usability. Additionally, the Split with Friends feature enables users to divide expenses based on custom ratios, making group expense management effortless. BudgetBuddy demonstrates strong foundational full-stack development skills, thoughtful API integration, and a practical approach to solving real-world financial tracking problems with a polished user experience.",
+    techStack: ["HTML", "Flask", "TailwindCSS", "Javascript", "Supabase", "Vercel"],
+    link: "https://budget-buddy-dun.vercel.app/",
+  },
+  {
+    id: 9,
+    name: "Netflix Clone",
+    title: "Netflix Clone App",
+    desc: "This project is a production-ready Netflix-style Android streaming application that replicates the core features of a modern OTT platform while emphasizing personalized content discovery. Built using native Android (Java) with an MVVM architecture, the app delivers a seamless user experience through secure authentication, multi-profile support, high-quality video playback with offline downloads, and polished UI/UX interactions. A key differentiating feature is the interactive swipe-based onboarding system, which captures user preferences at the start and serves as the foundation for personalized movie recommendations. The application follows a client\u2013server architecture, integrating Firebase for authentication and data management, TMDB API for movie metadata, ExoPlayer for streaming, and a custom FastAPI backend that uses vector-based machine learning to generate intelligent, scalable recommendations, demonstrating real-world readiness and strong full-stack engineering practices.",
+    techStack: ["Java - Frontend", "Python - Backend"],
+    link: "https://github.com/aanchal1810/Netflix-Clone",
+  },
+];
 
   useEffect(() => {
-    const first = projects[0];
+    const defaultProject =
+      projects.find((p) => p.id === DEFAULT_OPEN_PROJECT_ID) ?? projects[0];
+    if (!defaultProject) return;
 
     setOpenDocs([
       {
-        ...first,
+        ...defaultProject,
         position: { top: 80, left: 300 },
       },
     ]);
 
-    setZIndices({ [first.id]: 2 });
+    setZIndices({ [defaultProject.id]: 2 });
     setZCounter(2);
   }, []);
   const [isMobile, setIsMobile] = useState(false);
