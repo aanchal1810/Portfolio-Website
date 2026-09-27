@@ -59,17 +59,17 @@ const Skills = () => {
                   </li>
                   <li className="relative pl-8 before:absolute before:left-0 before:top-1 before:w-5 before:h-5 before:bg-[url('/images/Sparkle.svg')] before:bg-contain before:bg-no-repeat">
                     <span className="font-semibold">Hosting: </span>
-                    Vercel, Netlify
+                    Vercel, Netlify, AWS
                   </li>
                   <li className="relative pl-8 before:absolute before:left-0 before:top-1 before:w-5 before:h-5 before:bg-[url('/images/Sparkle.svg')] before:bg-contain before:bg-no-repeat">
                     <span className="font-semibold">Design: </span>
-                    Vercel, Figma
+                    Figma
                   </li>
                 </ul>
               </div>
               {/* Box Shadow Block */}
               <div className="absolute full top-4 -left-2 right-2 border-2 rounded-lg border-brand-black bg-brand-turqoise p-4 -z-10"
-              
+
               >
                 <h1 className="font-bold text-lg">Skills:</h1>
                 <ul className="space-y-2">
@@ -119,7 +119,7 @@ const Skills = () => {
                     <br />
                     <span>Expected Graduation: 2027</span>
                     <br />
-                    <span>CGPA: 3.93</span>
+                    <span>CGPA: 3.92</span>
                   </li>
                   <li className="relative pl-8 before:absolute before:left-0 before:top-1 before:w-5 before:h-5 before:bg-[url('/images/Sparkle.svg')] before:bg-contain before:bg-no-repeat">
                     <span className="font-semibold">
@@ -189,7 +189,7 @@ const Skills = () => {
             {/* View Projects Button */}
             <div className="absolute full top-2 -left-2 right-2 border-2 rounded-full border-brand-black bg-brand-pink p-4 -z-10">
               <div className="w-full flex gap-3 align-middle justify-center cursor-pointer"
-              
+
               >
                 <h1 className="font-bold text-lg">View Projects</h1>
                 <img src="/images/DownArrow.svg" />
@@ -200,7 +200,7 @@ const Skills = () => {
       </div>
     </section>
   );
-  
+
 }
 
 export default Skills
