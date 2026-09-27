@@ -14,17 +14,17 @@
 }
 /* @plugin "@tailwindcss/typography"; */
 
-@theme{
+@theme {
   --font-bethany: "BethanyElingston", serif;
-  --font-urbane: "UrbaneCondensed", sans-serif; 
+  --font-urbane: "UrbaneCondensed", sans-serif;
   --font-spline: "SplineSansMono", monospace;
   --color-brand-pink: rgb(255, 209, 221);
   --color-brand-black: rgb(46, 46, 46);
   --color-brand-lavendar: rgb(253, 220, 255);
   --color-brand-turqoise: rgb(214, 243, 255);
-  --color-brand-blue: #7DCDFF;
-  --color-brand-red: #FF74AE;
-  --color-brand-purple: #F67DFF;
+  --color-brand-blue: #7dcdff;
+  --color-brand-red: #ff74ae;
+  --color-brand-purple: #f67dff;
 }
 
 :root {
