@@ -37,7 +37,7 @@ interface ExtendedRigidBody extends RapierRigidBody {
 }
 
 // 4. Preload Assets
-useGLTF.preload("/glb/aanchalID.glb");
+useGLTF.preload("/glb/aanchalID1.glb");
 useTexture.preload("/images/band.jpg");
 
 export default function App() {
@@ -57,12 +57,10 @@ export default function App() {
         width: isMobile ? "100vw" : "50vw",
         height: "100vh",
       }}
-      
       gl={{ antialias: true }}
       onCreated={({ gl, scene }) => {
         gl.setClearColor("#ffffff");
         gl.toneMapping = THREE.NoToneMapping;
-        // Fix: Use modern ColorSpace API for newer Three.js versions
         gl.outputColorSpace = THREE.SRGBColorSpace;
         scene.background = new THREE.Color("#ffffff");
       }}
@@ -77,7 +75,8 @@ export default function App() {
       >
         <Band />
       </Physics>
-      <Environment background blur={0.75}>
+      {/* "background" prop removed so the scene stays pure white */}
+      <Environment blur={0.75}>
         <Lightformer
           intensity={2}
           color="white"
@@ -117,7 +116,6 @@ interface BandProps {
 }
 
 function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
-  // Fix: Initialize refs as standard RapierRigidBody to satisfy hooks
   const band = useRef<THREE.Mesh>(null);
   const fixed = useRef<RapierRigidBody>(null);
   const j1 = useRef<RapierRigidBody>(null);
@@ -140,9 +138,34 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
   };
 
   // GLTF Loading
-  const { nodes, materials } = useGLTF("/glb/aanchalID.glb") as any;
+  const { nodes } = useGLTF("/glb/aanchalID1.glb") as any;
   const texture = useTexture("/images/band.jpg");
   const { width, height } = useThree((state) => state.size);
+
+  const cardScene = nodes.Scene || nodes.Card || Object.values(nodes)[0];
+
+  // Make the textured card meshes unlit so the colours match the design exactly
+  useEffect(() => {
+    cardScene.traverse((child: any) => {
+      if (!child.isMesh || !child.material) return;
+      const old = child.material;
+      if (old.isMeshBasicMaterial || !old.map) return; // keep lit look for the clip etc.
+
+      old.map.colorSpace = THREE.SRGBColorSpace;
+      old.map.needsUpdate = true;
+
+      child.material = new THREE.MeshBasicMaterial({
+        map: old.map,
+        color: 0xffffff,
+        transparent: old.transparent,
+        opacity: old.opacity,
+        side: old.side,
+        alphaTest: old.alphaTest,
+        toneMapped: false,
+      });
+      old.dispose();
+    });
+  }, [cardScene]);
 
   const [curve] = useState(
     () =>
@@ -157,7 +180,6 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
   const [dragged, drag] = useState<THREE.Vector3 | false>(false);
   const [hovered, hover] = useState(false);
 
-  // Fix: Explicitly cast refs for joints to avoid "Type null is not assignable" errors
   useRopeJoint(
     fixed as React.RefObject<RapierRigidBody>,
     j1 as React.RefObject<RapierRigidBody>,
@@ -202,7 +224,6 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
     }
 
     if (fixed.current && j1.current && j2.current && j3.current && card.current && band.current) {
-      // Fix: Cast current refs to ExtendedRigidBody inside the loop to access .lerped safely
       const j1Extended = j1.current as ExtendedRigidBody;
       const j2Extended = j2.current as ExtendedRigidBody;
 
@@ -281,9 +302,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: BandProps) {
               );
             }}
           >
-            <primitive
-              object={nodes.Scene || nodes.Card || Object.values(nodes)[0]}
-            />
+            <primitive object={cardScene} />
           </group>
         </RigidBody>
       </group>
