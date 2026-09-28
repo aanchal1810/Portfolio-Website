@@ -26,9 +26,7 @@ const Skills = () => {
               }}
             >
               <p className="font-urbane">
-                Hello! I’m Aanchal Shah, a second year engineering student. I
-                love designing clean, modern interfaces and I know how to bring
-                them to life with code. I’m also a quick learner.
+                I’m Aanchal Shah, a Computer Engineering student and AI startup intern who builds technology with purpose. Beyond writing code, I design experiences, developing user-centric projects like a Virtual Try-On Room that solve real problems. I combine engineering precision with a designer’s mindset to create products people actually want to use.
               </p>
             </div>
             <img

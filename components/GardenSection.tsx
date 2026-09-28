@@ -49,7 +49,7 @@ export default function GardenSection() {
   }
 
   return (
-    <section className="flex flex-col align-middle justify-center gap-6 bg-white p-6 md:flex-row">
+    <section className="flex flex-col-reverse align-middle justify-center gap-6 bg-white p-6 md:flex-row">
       <DigitalGardenWindow
         flowers={flowers}
         onOpenLibrary={() => setLibraryOpen(true)}
